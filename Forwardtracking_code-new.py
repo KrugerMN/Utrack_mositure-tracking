@@ -35,7 +35,7 @@ Data = xr.open_dataset('/home/chandra/data/Kruger/Backtracking/africa_LU-2.nc').
 # Run this part to convert latitude 90:-90 & longitude 0:360 
 lon = Data.longitude
 lon = lon.values
-Data.longitude.values = np.where(lon>= 0,lon,lon+360)
+Data = Data.assign_coords(longitude=np.where(lon>= 0,lon,lon+360))
 Data = Data.sortby(Data.longitude)
 Data
 Screening = (Data/Data.values) # Classifies the sink regions to 1 
